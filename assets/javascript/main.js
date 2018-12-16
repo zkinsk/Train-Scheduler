@@ -68,7 +68,7 @@ function updateTrainData(newTD){
     let tbRow = $("<tr>").attr("trainKey", trainKey)
     tbRow.append(trainNameTD, trainDestTD, trainFreqTD)
     tbRow.append(trainTil(newTD)).append('<button class="btn btn-danger btn-sm times" type="delete"><i class="far fa-trash-alt"></i></button>');
-    $("table").append(tbRow);
+    $("table").prepend(tbRow);
 }
 // math for figuring min to arrival and time to next arrival
 var trainTil = function(dataB){
