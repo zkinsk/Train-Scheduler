@@ -1,6 +1,9 @@
 #train-data {
     margin-top: 10px
 }
+tr {
+    text-align: center;
+}
 /* .jumbotron{
     padding: 10px 0 10px 0;
 } */

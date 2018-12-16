@@ -13,7 +13,7 @@
     <div class="container">
         <div class="jumbotron jumbotron-fluid py-4" id="header">
             <h1 class="display-4" ><i class="far fa-clock"></i> <b>Train Scheduler</b></h1>
-            <p class="lead">Comprehensive Train Scheduler</p>
+            <p class="lead">Comprehensive Train Scheduler - Current Time: <span id="nowTime"> 12:00</span></p>
         </div>
         <div id="train-form">
             <p class="sectionHeader"><i class="far fa-list-alt"></i>Add Train</p>
@@ -36,8 +36,9 @@
                         <input type="number" class="form-control tF" id="trainFreq" min="1" step="1" max="200" placeholder="How Often does it run?">
                     </div>
                 </div>
-                <button class="btn btn-primary " type="submit"><i class="fas fa-search" id="submitButton"></i> Submit</button>
-                <button class="btn btn-primary " type="clear" id="clearButton"><i class="fas fa-ban"></i>Clear</button>
+                <button class="btn btn-primary btn-sm " type="submit"><i class="fas fa-search" id="submitButton"></i> Submit</button>
+                <button class="btn btn-primary btn-sm" type="clear" id="clearButton"><i class="fas fa-ban"></i>Clear</button>
+                <!-- <button class="btn btn-primary " type="refresh" id="clearButton"><refresh</button> -->
             </form>
         </div>
         <div id="train-data">
