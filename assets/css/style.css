@@ -4,6 +4,9 @@
 tr {
     text-align: center;
 }
+.deleteBtn {
+    transform: scale(0.65, 0.65)
+}
 /* .jumbotron{
     padding: 10px 0 10px 0;
 } */

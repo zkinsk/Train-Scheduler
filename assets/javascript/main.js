@@ -14,29 +14,34 @@
 
 function buttonClick() {
     // submit button functionality
-    $("button[type = 'submit']").click(function (event) {
+    $("button:submit").click(function (event) {
         event.preventDefault();
-        console.log("click");
+        // console.log("click");
         let trainName = $("#trainName").val().trim();
         let trainDest = $("#trainDest").val().trim();
         let startTime = $("#startTime").val().trim();
         let trainFreq = $("#trainFreq").val().trim();
-        // console.log(trainName);
-        $(".tF").val("");
-    // push form info to database
-        trainDB.push({
-            dateAdded: firebase.database.ServerValue.TIMESTAMP,
-            trainNameDB: trainName,
-            trainDestDB: trainDest,
-            startTimeDB: startTime,
-            trainFreqDB: trainFreq
-        });
+        if (trainName != "" && trainDest != "" && startTime != "" && trainFreq != "") {
+            // console.log(trainName);
+            $(".tF").val("");
+            // push form info to database
+            trainDB.push({
+                dateAdded: firebase.database.ServerValue.TIMESTAMP,
+                trainNameDB: trainName,
+                trainDestDB: trainDest,
+                startTimeDB: startTime,
+                trainFreqDB: trainFreq
+            });
+        }else{
+            alert("Complete Form")
+        }
+
     })
     // clear button functionality
     $("button[type = 'clear']").click(function (event) {
         event.preventDefault();
         trainDB.set({});
-        $("td").remove();
+        $(".trainTr").remove();
     });
     // delete button
     $("#train-data").on("click", "button[type = 'delete']", function(){
@@ -65,32 +70,36 @@ function updateTrainData(newTD){
     let trainFreqTD = $("<td>").text(newTD.val().trainFreqDB);
 
     // let tbRow = $("<tr>").attr("date-data", dateAdded)
-    let tbRow = $("<tr>").attr("trainKey", trainKey)
+    let tbRow = $("<tr>").attr("trainKey", trainKey).addClass("trainTr");
     tbRow.append(trainNameTD, trainDestTD, trainFreqTD)
-    tbRow.append(trainTil(newTD)).append('<button class="btn btn-danger btn-sm times" type="delete"><i class="far fa-trash-alt"></i></button>');
+    tbRow.append(trainTil(newTD)).append('<button class="btn btn-danger btn-sm times deleteBtn" type="delete"><i class="far fa-trash-alt"></i></button>');
     $("table").prepend(tbRow);
+
+
 }
 // math for figuring min to arrival and time to next arrival
 var trainTil = function(dataB){
-    let d = new Date();
-    let currentTime = 60*(parseInt(d.getHours())) + (parseInt(d.getMinutes()));
+    // let d = new Date();
+    // let currentTime = moment();
     let startTime = dataB.val().startTimeDB;
-    let x = startTime.split(":");
-    let y = (60*(parseInt(x[0]))) + parseInt(x[1]);
+    let startTimeConv = moment(startTime, "HH:mm").subtract(1, "years");
+    // let x = startTime.split(":");
+    // let y = (60*(parseInt(x[0]))) + parseInt(x[1]);
+    let diff = moment().diff(moment(startTimeConv), "minutes")
 
-    let diff = currentTime - y;
+    // let diff = currentTime - y;
     let trainFreq = (dataB.val().trainFreqDB);
-    let minTil = ( (Math.ceil(diff / trainFreq)) * trainFreq ) - diff
-    let timeNext = moment().add(minTil, "minutes").format("h:mm a");
-    if(minTil == 0){
+    var tRemainder = diff % trainFreq;
+    // var minTil = ( (Math.ceil(diff / trainFreq)) * trainFreq ) - diff
+    var minTil = trainFreq - tRemainder;
+    var timeNext = moment().add(minTil, "minutes").format("h:mm a");
+
+    if(minTil == 1){
         timeNext = "Arriving";
     }
-    // let minTilTD = $("<td>").text(minTil);
-    // let timeNextTD = $("<td>").text(timeNext);
+
     let tD = $("<td>" + timeNext + "</td><td>" + minTil + "</td>")
     tD.addClass("times");
-    // timeNextTD.after(minTilTD)
-    // tDat.append(timeNextTD, minTilTD)
     return (tD);
 
 }
@@ -115,7 +124,7 @@ function timeRefresh(){
             var childDateAdded = childSnapshot.val().dateAdded;
             let newTime = trainTil(childSnapshot)
             $("tr[trainKey =" + childKey + "]>.times").remove()
-            $("tr[trainKey =" + childKey + "]").append(newTime).append('<button class="btn btn-danger btn-sm times" type="delete"><i class="far fa-trash-alt"></i></button>');
+            $("tr[trainKey =" + childKey + "]").append(newTime).append('<button class="btn btn-danger btn-sm times deleteBtn" type="delete"><i class="far fa-trash-alt"></i></button>');
             // console.log(childKey)
             // console.log(childDateAdded)
         })

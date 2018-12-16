@@ -13,7 +13,7 @@
     <div class="container">
         <div class="jumbotron jumbotron-fluid py-4" id="header">
             <h1 class="display-4" ><i class="far fa-clock"></i> <b>Train Scheduler</b></h1>
-            <p class="lead">Comprehensive Train Scheduler - Current Time: <span id="nowTime"> 12:00</span></p>
+            <p class="lead">Comprehensive Train Scheduler - Current Time: <span id="nowTime"></span></p>
         </div>
         <div id="train-form">
             <p class="sectionHeader"><i class="far fa-list-alt"></i>Add Train</p>
@@ -21,23 +21,23 @@
                 <div class="form-row">
                     <div class="form-group col-3">
                         <label>Train Name</label>
-                        <input type="text" class="form-control tF" id="trainName" placeholder="Thomas?">
+                        <input type="text" class="form-control tF" id="trainName" placeholder="Thomas?" required>
                     </div>
                     <div class="form-group col-3">
                         <label>Desination</label>
-                        <input type="text" class="form-control tF" id="trainDest" placeholder="Where To?">
+                        <input type="text" class="form-control tF" id="trainDest" placeholder="Where To?" required>
                     </div>
                     <div class="form-group col-auto">
                         <label>Start Time</label>
-                        <input type="time" class="form-control tF" id="startTime" placeholder="Time of Day">
+                        <input type="time" class="form-control tF" id="startTime" placeholder="Time of Day" required>
                     </div>
                     <div class="form-group col-3">
                         <label>Frequency(min)</label>
-                        <input type="number" class="form-control tF" id="trainFreq" min="1" step="1" max="200" placeholder="How Often does it run?">
+                        <input type="number" min="1" step="1" max="200" class="form-control tF" id="trainFreq" placeholder="How Often does it run?" value="27" required>
                     </div>
                 </div>
                 <button class="btn btn-primary btn-sm " type="submit"><i class="fas fa-search" id="submitButton"></i> Submit</button>
-                <button class="btn btn-primary btn-sm" type="clear" id="clearButton"><i class="fas fa-ban"></i>Clear</button>
+                <!-- <button class="btn btn-primary btn-sm" type="clear" id="clearButton"><i class="fas fa-ban"></i>Clear</button> -->
                 <!-- <button class="btn btn-primary " type="refresh" id="clearButton"><refresh</button> -->
             </form>
         </div>
