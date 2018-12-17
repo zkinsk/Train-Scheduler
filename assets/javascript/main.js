@@ -21,7 +21,7 @@ function buttonClick() {
         let trainDest = $("#trainDest").val().trim();
         let startTime = $("#startTime").val().trim();
         let trainFreq = $("#trainFreq").val().trim();
-        if (trainName != "" && trainDest != "" && startTime != "" && trainFreq != "") {
+        if (trainName && trainDest && startTime && trainFreq) {
             // console.log(trainName);
             $(".tF").val("");
             // push form info to database
@@ -33,7 +33,8 @@ function buttonClick() {
                 trainFreqDB: trainFreq
             });
         }else{
-            alert("Complete Form")
+            // alert("Complete Form")
+            $("#emptyForm").fadeIn(400).delay(1000).fadeOut(400);
         }
 
     })
